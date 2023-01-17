@@ -1,11 +1,18 @@
 from pyspark.sql import SparkSession
 import argparse
-from functions import rename_data, filter_data, join_data, select_data
+from functions import rename_data, filter_data, select_data
 import logging
 import os
 
-def get_arguments() -> tuple[list[str], str, str]:
 
+def get_arguments() -> tuple[list[str], str, str]:
+    """ Function gets arguments provided by user. It looks for clients raw data path, financial raw data path
+     and list of countries to filter data to
+
+    Returns
+    -------
+
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--clients', type=str, required=True)
     parser.add_argument('--financial', type=str, required=True)
@@ -20,6 +27,11 @@ def get_arguments() -> tuple[list[str], str, str]:
     
 
 def main():
+    """ Main function. Here function gets arguments provided by user. Gets 2 dataframes from provided csv path,
+    renamed columns in financial_df, joins both dataframes, filters dataframe based on list of countries provided by
+    user and whether account is active. Finally selects only necessary columns and saves result dataframe to csv
+    in client_data directorycd
+    """
     logging.info('Getting arguments')
     list_countries, path_clients, path_financial = get_arguments()
     spark = SparkSession.builder.appName("POC3").getOrCreate()
@@ -45,22 +57,16 @@ def main():
                              'a': 'active', 'cc_mc': 'credit_card_main_currency',
                              'ac_t': 'account_type'}
     financial_df_renamed = rename_data(financial_df, column_to_rename_dict)
-    financial_df_renamed.show()
-    logging.info('Filtering result dataframe')
-    #joined_df = join_data(input1_df=clients_df, input2_df=financial_df_renamed, column_to_join_on='id')
+    logging.info('Joining dataframes')
     joined_df = clients_df.join(financial_df_renamed, ['id'])
-    joined_df.show()
     selected_columns = ['id', 'email', 'credit_card_type', 'account_type']
     columns_to_filter = {'country': list_countries, 'active': [True]}
+    logging.info('Filtering result dataframe')
     filtered_df = filter_data(input_df=joined_df, columns_to_filter=columns_to_filter)
-    filtered_df.show()
-    select_df = select_data(filtered_df, selected_columns)
-    select_df.show()
+    selected_df = select_data(filtered_df, selected_columns)
     results_path = os.path.join(os.getcwd(), 'client_data')
-    logging.info('Saving results to csv file')
-    #filtered_df.toPandas().to_csv(results_path, index=True)
-    #filtered_df.repartition(1).write.csv(results_path)
-    filtered_df.coalesce(1).write.option("header", "true").format("csv").mode('overwrite').save(results_path)
+    logging.info(f'Saving results to csv file: {results_path}')
+    selected_df.coalesce(1).write.option("header", "true").format("csv").mode('overwrite').save(results_path)
 
 
 if __name__ == "__main__":
