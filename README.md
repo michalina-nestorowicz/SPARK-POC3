@@ -1,31 +1,25 @@
-# SPARK-POC3
 # PySpark/Databricks UpSkilling POC 3
 
-## Table of contents
-* [Prerequisites](#pre)
-* [Introduction](#intro)
-* [Overview](#ov)
-* [Dataset](#data)
-* [Mandatory tasks](#mt)
-* [Optional tasks](#ot)
 
-<a id="pre"></a>
-## Prerequisites
-This will be on premise PySpark POC with DevOps elements. Please use Linux VM or install and configure WSL on your Windows machine.
 
-<a id="intro"></a>
 ## Introduction
-This POC will be about creating PySpark application while using Git and CI/CD pipelines.
-
-<a id="ov"></a>
-## Overview
-There is a company called GemiCappa that handles Forex trading. Company maintains two datasets: first with information about clients and second with their financial details.
-
-The company needs a dataset containing clients emails, credit card type and an account type. The company is itnerested only in active accounts from Poland and France.
+This POC is about creating PySpark application while using Git and CI/CD pipelines.
+It takes data from csv files, filters it and saves result.
 
 
-<a id="data"></a>
-## Dataset
+## Get started
+This POC works on WSL.
+Users run the program by running this example command:
+```console 
+user@LCE58202:/mnt/c/PATH/TO/PROJECT$ python3 main.py  --financial ./raw/financial.csv  --clients ./raw/clients.csv  --list Poland France
+```
+where:
+
+* --financial argument is a path to a financial.csv file
+* --clients argument is a path to clients.csv file
+* --list argument is a list of countries to preserve
+
+## Used dataset
 
 ### clients.csv
 |name|description|type|
@@ -49,33 +43,17 @@ The company needs a dataset containing clients emails, credit card type and an a
 |a|active flag|bool|
 |ac_t|account type|string|
 
-<a id="mt"></a>
-## Mandatory tasks
-* Use Python>=3.9 and PySpark
-* Do **NOT** use notebooks (eg. Jupyter or Databricks)
-* Preserve data only for clients from Poland and France
-* Remove personal identifiable information (PII) - excluding emails and sensitive financial data
-* Data should by joined using **id** column
-* Rename columns using below mapping:
-
-|Old name|New name|
-|--|--|
-|cc_t|credit_card_type|
-|cc_n|credit_card_number|
-|cc_mc|credit_card_main_currency|
-|a|active|
-|ac_t|account_type|
-* Store project in GitHub
-* Save a result dataset in client_data directory in the root directory of project
-* Add README file
-* Application should recieve 3 arguments: 2 path to datasets and a list of countries to preserve
-* Use logging
-* Test the application (Use https://github.com/MrPowers/chispa for Spark tests)
-* Create generic functions for data filtering and columns renaming
-
-<a id="ot"></a>
-## Optional (Bonus) tasks
-* Build a package with ready solution
-* Build automated pipeline using GitHub Actions
-* Use log file with rotating policy
-* Document the code with docstrings formatted into reStructuredText (reST) - https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html
+## Project components
+This project contains:
+* directories:
+  * doc - directory where Sphinx doc are created
+  * raw - directory where raw dataset files are stored
+  * .github - folder with written GitHub Actions workflow
+  * test - package with pytest tests written using Chispa package
+  * client_data - directory where result csv is saved
+* files:
+  * functions.py
+  * main.py
+  * myapp.log
+  * pyproject.toml
+  * requirements.txt
