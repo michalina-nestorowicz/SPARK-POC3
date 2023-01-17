@@ -39,3 +39,9 @@ jobs:
         run: |
           pip install pytest
           pytest 
+
+      - name: Create package
+        run: |
+          pip install build
+          python -m build
+          
