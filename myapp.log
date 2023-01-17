@@ -13,3 +13,37 @@ INFO:root:Filtering result dataframe
 INFO:root:Saving results to csv file
 INFO:root:Finished
 INFO:py4j.clientserver:Closing down clientserver connection
+INFO:root:Started
+INFO:root:Getting arguments
+INFO:root:Reading Dataframe from csv
+INFO:root:Renaming column in financial df
+INFO:root:Filtering result dataframe
+INFO:root:Saving results to csv file
+INFO:py4j.clientserver:Closing down clientserver connection
+INFO:root:Started
+INFO:root:Getting arguments
+INFO:root:Reading Dataframe from csv
+INFO:py4j.clientserver:Closing down clientserver connection
+INFO:root:Started
+INFO:root:Getting arguments
+INFO:root:Reading Dataframe from csv
+INFO:py4j.clientserver:Closing down clientserver connection
+INFO:root:Started
+INFO:root:Getting arguments
+INFO:root:Reading Dataframe from csv
+INFO:py4j.clientserver:Closing down clientserver connection
+INFO:root:Started
+INFO:root:Getting arguments
+INFO:root:Reading Dataframe from csv
+INFO:root:Renaming column in financial df
+INFO:root:Filtering result dataframe
+INFO:root:Saving results to csv file
+INFO:py4j.clientserver:Closing down clientserver connection
+INFO:root:Started
+INFO:root:Getting arguments
+INFO:root:Reading Dataframe from csv
+INFO:root:Renaming column in financial df
+INFO:root:Filtering result dataframe
+INFO:root:Saving results to csv file
+INFO:root:Finished
+INFO:py4j.clientserver:Closing down clientserver connection

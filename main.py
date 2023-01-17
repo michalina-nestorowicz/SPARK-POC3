@@ -56,11 +56,11 @@ def main():
     filtered_df.show()
     select_df = select_data(filtered_df, selected_columns)
     select_df.show()
-    results_path = os.path.join(os.getcwd(), 'client_data\\result')
+    results_path = os.path.join(os.getcwd(), 'client_data')
     logging.info('Saving results to csv file')
     #filtered_df.toPandas().to_csv(results_path, index=True)
-    #filtered_df.repartition(2).write.csv(results_path)
-    filtered_df.repartition(1).write.option("header", "true").format("csv").save("C:\\GIT\\PYSPARK_UPSKILLING\\SPARK-POC3\\client_data\\results_folder")
+    #filtered_df.repartition(1).write.csv(results_path)
+    filtered_df.coalesce(1).write.option("header", "true").format("csv").mode('overwrite').save(results_path)
 
 
 if __name__ == "__main__":

@@ -29,8 +29,7 @@ def test_filter_data():
 
 
 def test_select_data():
-    test_data = [(1, 'value_test', 'value2', 'value_not_selected'),
-                 (2, 'value_test', 'value2', 'value_not_selected')]
+    test_data = [(1, 'value_test', 'value2', 'value_not_selected')]
     test_headers = ['id', 'column_test', 'column2', 'column_not_selected']
     df = spark.createDataFrame(test_data,test_headers)
     columns_to_select = ['id', 'column2']
